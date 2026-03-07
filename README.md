@@ -1,4 +1,5 @@
 # Claude → Cursor Desktop Notification Setup (Local Only)
+<img width="367" height="79" alt="Screenshot 2026-03-07 at 8 30 21 AM" src="https://github.com/user-attachments/assets/41a21f4a-eeb9-429e-8bde-663f5b9dd9ee" />
 
 This project configures Claude Code hooks to send local macOS desktop notifications when Claude:
 
