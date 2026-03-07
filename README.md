@@ -1,12 +1,12 @@
 # Claude → Cursor Desktop Notification Setup (Local Only)
 
-This project configures **Claude Code hooks** to send local macOS desktop notifications when Claude:
+This project configures Claude Code hooks to send local macOS desktop notifications when Claude:
 
 - Needs user input
 - Requests permission
 - Stops or completes a task
 
-Clicking the notification brings the correct **Cursor project window** to the front.
+Clicking the notification brings the correct Cursor project window to the front.
 
 This setup is:
 
@@ -24,8 +24,8 @@ This setup is:
 - Cursor installed
 - Claude Code CLI installed
 - Homebrew installed
-- `terminal-notifier`
-- `jq`
+- terminal-notifier
+- jq
 
 Install dependencies:
 
@@ -57,7 +57,29 @@ chmod 700 ~/.claude/hooks/notify.sh
 chmod 700 ~/.claude/hooks/focus-cursor.sh
 ```
 
-## 3. Install Claude user settings
+## 3. Update settings.json (IMPORTANT)
+
+Open `settings.json` and replace:
+
+```
+/Users/YOUR_USERNAME/
+```
+
+with your actual macOS username.
+
+Example:
+
+```
+/Users/johnsmith/
+```
+
+You can find your username by running:
+
+```bash
+whoami
+```
+
+Then install the settings:
 
 ```bash
 cp settings.json ~/.claude/settings.json
@@ -70,13 +92,13 @@ If you already have a `~/.claude/settings.json`, merge carefully instead of over
 
 # macOS Notification Permission (Important)
 
-`terminal-notifier` requires macOS notification permission.
+terminal-notifier requires macOS notification permission.
 
 After first run:
 
-1. Open **System Settings**
-2. Go to **Notifications**
-3. Find **terminal-notifier**
+1. Open System Settings
+2. Go to Notifications
+3. Find terminal-notifier
 4. Enable:
    - Allow Notifications
    - Banner or Alerts
@@ -88,10 +110,10 @@ If notifications do not appear, check this first.
 
 # How It Works
 
-- Claude fires a `Notification` hook.
-- The hook runs `notify.sh`.
+- Claude fires a hook event (Notification, PermissionRequest, Stop, TaskCompleted).
+- The hook runs notify.sh.
 - A macOS desktop notification is shown.
-- Clicking the notification runs `focus-cursor.sh`.
+- Clicking the notification runs focus-cursor.sh.
 - That script activates Cursor and opens the current project directory.
 
 No prompt text or hook payload is displayed.
@@ -130,8 +152,7 @@ claude
 4. Ask Claude to do something that requires permission or user input.
 5. Switch to another app.
 6. Wait for the notification.
-
-Click the notification.
+7. Click the notification.
 
 Cursor should return to the correct project.
 
@@ -165,7 +186,7 @@ Also verify macOS notification permissions.
 
 ## Click Does Nothing
 
-Ensure `focus-cursor.sh` is executable:
+Ensure focus-cursor.sh is executable:
 
 ```bash
 chmod 700 ~/.claude/hooks/focus-cursor.sh
@@ -195,7 +216,7 @@ Validate JSON:
 cat ~/.claude/settings.json | jq .
 ```
 
-Ensure the `command` path in `settings.json` is absolute.
+Ensure the command path in settings.json is absolute and your username is correctly replaced.
 
 ---
 
@@ -208,4 +229,4 @@ Ensure the `command` path in `settings.json` is absolute.
 - Files use restrictive permissions.
 - No dynamic shell construction from hook payloads.
 
-This setup is designed to minimize attack surface while providing reliable local workflow notifications.
+This setup minimizes attack surface while providing reliable local workflow notifications.
