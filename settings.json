@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/YOUR_USERNAME/.claude/hooks/notify.sh"
+            "command": "/bin/bash \"$HOME/.claude/hooks/notify.sh\""
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/YOUR_USERNAME/.claude/hooks/notify.sh"
+            "command": "/bin/bash \"$HOME/.claude/hooks/notify.sh\""
           }
         ]
       }
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/YOUR_USERNAME/.claude/hooks/notify.sh"
+            "command": "/bin/bash \"$HOME/.claude/hooks/notify.sh\""
           }
         ]
       }
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/YOUR_USERNAME/.claude/hooks/notify.sh"
+            "command": "/bin/bash \"$HOME/.claude/hooks/notify.sh\""
           }
         ]
       }
