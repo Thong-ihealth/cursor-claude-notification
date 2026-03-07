@@ -11,7 +11,7 @@ Clicking the notification brings the correct Cursor project window to the front.
 This setup is:
 
 - Local-only (no webhooks, no external services)
-- Uses absolute paths
+- Uses shell-expanded home paths
 - Does not expose prompt content
 - Follows shell security best practices
 - Works across all projects via `~/.claude/settings.json`
@@ -57,34 +57,14 @@ chmod 700 ~/.claude/hooks/notify.sh
 chmod 700 ~/.claude/hooks/focus-cursor.sh
 ```
 
-## 3. Update settings.json (IMPORTANT)
-
-Open `settings.json` and replace:
-
-```
-/Users/YOUR_USERNAME/
-```
-
-with your actual macOS username.
-
-Example:
-
-```
-/Users/johnsmith/
-```
-
-You can find your username by running:
-
-```bash
-whoami
-```
-
-Then install the settings:
+## 3. Install Claude user settings
 
 ```bash
 cp settings.json ~/.claude/settings.json
 chmod 600 ~/.claude/settings.json
 ```
+
+This repo’s `settings.json` uses `$HOME`, so you do not need to edit your macOS username manually.
 
 If you already have a `~/.claude/settings.json`, merge carefully instead of overwriting.
 
@@ -110,10 +90,10 @@ If notifications do not appear, check this first.
 
 # How It Works
 
-- Claude fires a hook event (Notification, PermissionRequest, Stop, TaskCompleted).
-- The hook runs notify.sh.
+- Claude fires a hook event.
+- The hook runs `notify.sh`.
 - A macOS desktop notification is shown.
-- Clicking the notification runs focus-cursor.sh.
+- Clicking the notification runs `focus-cursor.sh`.
 - That script activates Cursor and opens the current project directory.
 
 No prompt text or hook payload is displayed.
@@ -186,7 +166,7 @@ Also verify macOS notification permissions.
 
 ## Click Does Nothing
 
-Ensure focus-cursor.sh is executable:
+Ensure `focus-cursor.sh` is executable:
 
 ```bash
 chmod 700 ~/.claude/hooks/focus-cursor.sh
@@ -216,7 +196,11 @@ Validate JSON:
 cat ~/.claude/settings.json | jq .
 ```
 
-Ensure the command path in settings.json is absolute and your username is correctly replaced.
+Check that the hook command still points to:
+
+```bash
+/bin/bash "$HOME/.claude/hooks/notify.sh"
+```
 
 ---
 
