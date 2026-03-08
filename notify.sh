@@ -1,6 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+sleep 1.5
+
+CURSOR_FRONTMOST=$(
+  /usr/bin/osascript <<'APPLESCRIPT' 2>/dev/null
+tell application "System Events"
+  if exists application process "Cursor" then
+    return frontmost of application process "Cursor"
+  else
+    return false
+  end if
+end tell
+APPLESCRIPT
+)
+
+if [ "$CURSOR_FRONTMOST" = "true" ]; then
+  exit 0
+fi
+
 INPUT="$(cat || true)"
 
 TITLE="Claude Code"
